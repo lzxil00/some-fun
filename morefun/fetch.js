@@ -1,9 +1,10 @@
 require('isomorphic-fetch');
 
 let TIME_OUT = 100;
-let start_orderId = 30142842;
+let start_orderId = 30138635; // 8位数
 let count = 1000;
-let phone = '17600546600';
+let phone = '13241625824'; // 泽民
+// let phone = '17600546600'; // 雄
 
 const orderIdList = new Array(count).fill(0).map((o, i) => start_orderId + i);
 
@@ -49,7 +50,7 @@ const continueQuery = (orderId) => {
         if (validResult(modelData, false)) console.log(resultUrl(orderId));
         if (validResult(modelData)) {
             console.log(resultUrl(orderId), '!!!!!!!');
-            returnList.push(resultUrl(orderId));
+            returnList.push(orderId);
         }
         setTimeout(() => continueQuery(orderId + 1), TIME_OUT);
     })
