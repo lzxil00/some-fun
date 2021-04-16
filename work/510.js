@@ -1,4 +1,9 @@
-function test() {
+/**
+ * 510亲友日预约 查漏
+ * 预定页面使用此脚本
+ */
+
+function INeedQuota() {
   const button = document.getElementsByClassName('button-iw4lje29')[0];
   button.click();
   setTimeout(() => {
@@ -16,4 +21,4 @@ function test() {
   }, 2000);
 }
 
-test();
+INeedQuota();
