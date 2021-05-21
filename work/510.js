@@ -12,7 +12,7 @@ function INeedQuota() {
       console.log('满员')
       const close = document.querySelector('.kuma-dlg-content .kuma-dlg-close');
       close.click();
-      setTimeout(() => test(), 2000);
+      setTimeout(() => INeedQuota(), 2000);
     } else {
       const music = 'https://downsc.chinaz.net/Files/DownLoad/sound1/202007/13195.mp3'; // 提示音乐
       const audio = new Audio(music);
