@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>地理位置解析</title>
+    <title>地理位置经纬度获取</title>
     <script type="text/javascript"
             src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=GkaE33f0dtxqrbXBKigGGG7AlCoEdG1M"></script>
 
@@ -22,11 +22,10 @@
             height: 100%
         }
     </style>
-    <script type="module" src="./location.js"></script>
+    <script type="module" src="nameList.js"></script>
 </head>
 <body>
-<!-- 先使用getPosition.html获取所有经纬度，然后手动copy到location.js中，再运行此页面 -->
 <div id="container"></div>
-<script type="module" src="./main.js"></script>
+<script type="module" src="./getPosition.js"></script>
 </body>
 </html>
