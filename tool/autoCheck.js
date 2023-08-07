@@ -48,7 +48,7 @@ const main = async () => {
             fetchFunc().then(res => res.json()).then(json => {
                 if (checkFunc(json)) {
                     const date = new Date();
-                    const dataStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+                    const dataStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
                     console.log(`查询第${count}次，通过检测，时间：${dataStr}`)
                     resolve();
                 } else {
