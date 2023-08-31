@@ -3,23 +3,25 @@
  * @returns {Promise<Response>}
  */
 const fetchFunc = () => {
-    return fetch("https://lark.openryan.com/ryan/phs/phs3/api/seldate?org_head=tt101&login_type=4", {
+    return fetch("https://health.bytedance.com/byte-health/api/user/v1/pe/packages/26777810/query-schedule", {
         "headers": {
             "accept": "application/json, text/plain, */*",
-            "accept-language": "zh,zh-TW;q=0.9,zh-CN;q=0.8,en;q=0.7",
+            "accept-language": "cn",
             "cache-control": "no-cache",
-            "content-type": "application/json;charset=UTF-8",
+            "content-type": "application/json",
             "pragma": "no-cache",
-            "sec-ch-ua": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"",
+            "redirect-url": "https://health.bytedance.com/reserve",
+            "sec-ch-ua": "\"Chromium\";v=\"116\", \"Not)A;Brand\";v=\"24\", \"Google Chrome\";v=\"116\"",
             "sec-ch-ua-mobile": "?0",
             "sec-ch-ua-platform": "\"macOS\"",
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-origin"
+            "sec-fetch-site": "same-origin",
+            "x-requested-with": "XMLHttpRequest"
         },
-        "referrer": "https://lark.openryan.com/aco/?ver=26&org_head=tt101&login_type=4&lang=zh-CN&open_in_browser=true",
+        "referrer": "https://health.bytedance.com/reserve",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"svc_gcode\":\"20010\",\"org_pos\":\"TT111\",\"item_id\":\"TT11110000013\",\"doctor_id\":\"\"}",
+        "body": "{\"hospitalCode\":\"2034\",\"startTime\":1692947317784,\"endTime\":1700841600000,\"extraPackageCodes\":\"866506,866626,866685,866602,866650,866410\"}",
         "method": "POST",
         "mode": "cors",
         "credentials": "include"
@@ -31,10 +33,13 @@ const fetchFunc = () => {
  * @returns {boolean}
  */
 const checkFunc = (json) => {
-    // 当天是否有号
-    return json.data?.[0]?.[0]?.oh_qty > 0 ?? false
+    return json.data.schedule.filter((_, index) => index > 2 && index < 6).some(({periods}) => periods[0].availableNum > 0)
 }
 
+/**
+ * 查询间隔
+ * @type {number}
+ */
 const DELAY_TIME = 5 * 1000;
 
 /**

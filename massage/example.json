@@ -1,0 +1,48 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": [
+    [
+      {
+        "work_date1": "2023-08-31",
+        "work_date2": "4",
+        "oh_qty": 0
+      },
+      {
+        "work_date1": "2023-09-01",
+        "work_date2": "5",
+        "oh_qty": 0
+      },
+      {
+        "work_date1": "2023-09-04",
+        "work_date2": "1",
+        "oh_qty": 3
+      },
+      {
+        "work_date1": "2023-09-05",
+        "work_date2": "2",
+        "oh_qty": 17
+      },
+      {
+        "work_date1": "2023-09-06",
+        "work_date2": "3",
+        "oh_qty": 40
+      },
+      {
+        "work_date1": "2023-09-07",
+        "work_date2": "4",
+        "oh_qty": 37
+      }
+    ],
+    {
+      "fieldCount": 0,
+      "affectedRows": 0,
+      "insertId": 0,
+      "serverStatus": 34,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    }
+  ]
+}
