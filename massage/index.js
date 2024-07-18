@@ -10,16 +10,13 @@ const fetchFunc = () => {
             "cache-control": "no-cache",
             "content-type": "application/json;charset=UTF-8",
             "pragma": "no-cache",
-            "sec-ch-ua": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"macOS\"",
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-origin"
         },
-        "referrer": "https://lark.openryan.com/aco/?ver=26&org_head=tt101&login_type=4&lang=zh-CN&open_in_browser=true",
+        "referrer": "https://lark.openryan.com/aco/?ver=27&org_head=tt101&login_type=4&lang=en-US&open_in_browser=true&ts=1721284212",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"svc_gcode\":\"20010\",\"org_pos\":\"TT111\",\"item_id\":\"TT11110000013\",\"doctor_id\":\"\"}",
+        "body": "{\"svc_gcode\":\"20011\",\"org_pos\":\"TT112\",\"item_id\":\"TT11210000007\",\"doctor_id\":\"\"}",
         "method": "POST",
         "mode": "cors",
         "credentials": "include"
@@ -32,7 +29,13 @@ const fetchFunc = () => {
  */
 const checkFunc = (json) => {
     // 当天是否有号
-    return json.data?.[0]?.[0]?.oh_qty > 0 ?? false
+    // return json.data?.[0]?.[0]?.oh_qty > 0 ?? false;
+    for (let i = 0; i < 4; i++) {
+        if (json.data?.[0]?.[i]?.oh_qty > 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 const DELAY_TIME = 5 * 1000;
