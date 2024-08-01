@@ -1,77 +1,100 @@
-let count = 0;
-const delay = (time) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, time);
+/**
+ * 填写fetch方法用于数据请求
+ * @returns {Promise<Response>}
+ */
+const fetchFunc = () => {
+    return fetch("https://wapticket.cstm.org.cn/prod-api/pool/ingore/getCalendar?openPerson=1&saleMode=1", {
+        "headers": {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "zh,zh-TW;q=0.9,zh-CN;q=0.8,en;q=0.7",
+            "cache-control": "no-cache",
+            "lang": "zh_cn",
+            "pragma": "no-cache",
+            "priority": "u=1, i",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin"
+        },
+        "referrer": "https://wapticket.cstm.org.cn/individualCustomers/select/selectDate",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "omit"
     });
-};
-
-const DELAY_TIME = 500
-
-const playMusic = () => {
-    const music = 'https://downsc.chinaz.net/Files/DownLoad/sound1/202007/13195.mp3'; // 提示音乐
-    let audio = new Audio(music);
-    audio.muted = false;
-    audio.play();
 }
 
-const checkTicket = async () => {
-    count++;
-    await delay(DELAY_TIME * 2);
-    return new Promise((resolve, reject) => {
-        fetch('https://pcticket.cstm.org.cn/prod-api/pool/getPriceByScheduleId?hallId=1&openPerson=1&queryDate=2023%2F07%2F26&saleMode=1&scheduleId=23', {
-            credentials: 'same-origin',
-            headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImQxYWQyMTZhLTc4YzEtNDgxOC1iNTA5LWVmNDc0MTMxZmIwZCJ9.82p5SzgWpmSXVkPFt-RRKTHY_ob4YDbZWN_pD7pLvqGdDVD18Zeh8isIfEzEPEuJp66gBKB4hU009M1J5LumSg`
-            }
-        }).then(res => res.json()).then(json => {
-            if (json?.data?.[0]?.ticketPool > 0 || json?.data?.[1]?.ticketPool > 0) {
-                console.log(`查询第${count}次，有票！`)
-                resolve();
-            } else {
-                console.log(`查询第${count}次，暂时无票`)
-                reject();
-            }
-        }).catch(e => {
-            console.log(`查询第${count}次，查询失败，原因：`, e)
-        })
-    })
+/**
+ * 填写数据请求回来后的判断逻辑
+ * @returns {boolean}
+ */
+const checkFunc = (json) => {
+    const list = json.data.filter(item => item.currentDate === '2024-07-30');
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].hallTicketPoolVOS[0].ticketPool > 0) {
+            console.log(list[i].currentDate)
+            return true;
+        }
+    }
+    return false;
 }
 
-const autoCheck = (globalResolve) => {
-    return new Promise(resolve => {
-        checkTicket().then(() => {
-            globalResolve ? globalResolve() : resolve()
-        }).catch(() => {
-            return autoCheck(globalResolve || resolve)
-        })
-    })
-}
+const DELAY_TIME = 1 * 1000;
 
+/**
+ * 主程序
+ * @returns {Promise<void>}
+ */
 const main = async () => {
-    await delay(DELAY_TIME * 2);
-    await autoCheck();
+    let count = 0;
+    const delay = (time) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, time);
+        });
+    };
+
+    const playMusic = () => {
+        const music = 'https://downsc.chinaz.net/Files/DownLoad/sound1/202007/13195.mp3'; // 提示音乐
+        let audio = new Audio(music);
+        audio.muted = false;
+        audio.play();
+    }
+
+    const checkTicket = async (fetchFunc, checkFunc) => {
+        count++;
+        await delay(DELAY_TIME * 2);
+        return new Promise((resolve, reject) => {
+            fetchFunc().then(res => res.json()).then(json => {
+                if (checkFunc(json)) {
+                    const date = new Date();
+                    const dataStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+                    console.log(`查询第${count}次，通过检测，时间：${dataStr}`)
+                    resolve();
+                } else {
+                    console.log(`查询第${count}次，检测失败，继续查询`)
+                    reject();
+                }
+            }).catch(e => {
+                console.log(`查询第${count}次，请求失败，原因：`, e)
+            })
+        })
+    }
+
+    const autoCheck = (fetchFunc, checkFunc, globalResolve) => {
+        return new Promise(resolve => {
+            checkTicket(fetchFunc, checkFunc).then(() => {
+                globalResolve ? globalResolve() : resolve()
+            }).catch(() => {
+                return autoCheck(fetchFunc, checkFunc, globalResolve || resolve)
+            })
+        })
+    }
 
     await delay(DELAY_TIME);
-    const input = document.querySelector('#app > div.fill_info > div.panel > div.edit > div.el-table.el-table--fit.el-table--enable-row-hover.el-table--enable-row-transition > div.el-table__body-wrapper.is-scrolling-none > table > tbody > tr > td.el-table_1_column_2.el-table__cell > div > div > div.el-input.el-input--suffix > input');
-    input.click();
-
-    await delay(DELAY_TIME);
-    const li = document.querySelector('body > div.el-select-dropdown.el-popper > div.el-scrollbar > div.el-select-dropdown__wrap.el-scrollbar__wrap > ul > li');
-    li.click();
-
-    await delay(DELAY_TIME);
-    const label_people = document.querySelector('#app > div.fill_info > div.panel > div.contact > div > label:nth-child(2)');
-    label_people.click();
-
-    await delay(DELAY_TIME);
-    const input_type = document.querySelector('#app > div.fill_info > div.panel > div.edit > div.el-table.el-table--fit.el-table--enable-row-hover.el-table--enable-row-transition > div.el-table__body-wrapper.is-scrolling-none > table > tbody > tr > td.el-table_1_column_6.el-table__cell > div > div > div > input');
-    input_type.click();
-
-    await delay(DELAY_TIME);
-    const li_tick = document.querySelector('body > div:nth-child(7) > div.el-scrollbar > div.el-select-dropdown__wrap.el-scrollbar__wrap > ul > li:nth-child(1) > span:nth-child(2)');
-    li_tick.click();
+    await autoCheck(fetchFunc, checkFunc);
+    playMusic();
 }
 
 const result = main();
