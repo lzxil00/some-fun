@@ -14,9 +14,9 @@ const fetchFunc = () => {
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-origin"
         },
-        "referrer": "https://lark.openryan.com/aco/?ver=27&org_head=tt101&login_type=4&lang=en-US&open_in_browser=true&ts=1721284212",
+        "referrer": "https://lark.openryan.com/aco/?lang=en-US&open_in_browser=true&ver=30&org_head=tt101&login_type=4",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"svc_gcode\":\"20011\",\"org_pos\":\"TT112\",\"item_id\":\"TT11210000007\",\"doctor_id\":\"\"}",
+        "body": "{\"svc_gcode\":\"20010\",\"org_pos\":\"TT111\",\"item_id\":\"TT11110000013\",\"doctor_id\":\"\"}",
         "method": "POST",
         "mode": "cors",
         "credentials": "include"
@@ -28,14 +28,22 @@ const fetchFunc = () => {
  * @returns {boolean}
  */
 const checkFunc = (json) => {
-    // 当天是否有号
-    // return json.data?.[0]?.[0]?.oh_qty > 0 ?? false;
-    for (let i = 0; i < 4; i++) {
+    // 前n天是否有号
+    const n = 1;
+    for (let i = 0; i < n; i++) {
         if (json.data?.[0]?.[i]?.oh_qty > 0) {
             return true;
         }
     }
     return false;
+
+    // 当天某个时段是否有号
+    // const timeList = [
+    //   '17:55,18:25',
+    //   '18:30,19:00',
+    //   '19:25,19:55',
+    // ]
+    // return json.data?.[0]?.some(item => item.oh_qty > 0 && timeList.includes(item.cat_code)) ?? false;
 }
 
 const DELAY_TIME = 5 * 1000;
@@ -60,6 +68,8 @@ const main = async () => {
         audio.muted = false;
         audio.play();
     }
+    // 测试音乐播放
+    playMusic();
 
     const checkTicket = async (fetchFunc, checkFunc) => {
         count++;
@@ -72,7 +82,7 @@ const main = async () => {
                     console.log(`查询第${count}次，通过检测，时间：${dataStr}`)
                     resolve();
                 } else {
-                    console.log(`查询第${count}次，检测失败，继续查询`)
+                    console.log(`查询第${count}次，检测失败，继续查询`, json)
                     reject();
                 }
             }).catch(e => {
