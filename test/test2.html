@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100vw;
+        }
+
+        header {
+            height: 100px;
+            width: 100%;
+            background: aqua;
+        }
+
+        footer {
+            height: 80px;
+            width: 100%;
+            background: aqua;
+        }
+
+        section {
+            width: 100%;
+            min-height: calc(100vh - 180px);
+            display: flex;
+        }
+
+        .left {
+            background: red;
+            width: 200px;
+        }
+
+        .center {
+            background: greenyellow;
+            flex: 1;
+            overflow: auto;
+        }
+
+        .right {
+            width: 200px;
+            background: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>A</header>
+    <section>
+        <div class="left">B</div>
+        <div class="center">
+            CCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCC<br/>CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+        </div>
+        <div class="right">D</div>
+    </section>
+    <footer>E</footer>
+</div>
+</body>
+</html>

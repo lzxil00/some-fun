@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="list">
+
+</ul>
+<script>
+    const list = document.getElementById('list');
+    for (let i = 0; i < 10000; i++) {
+      const li = document.createElement('li');
+      li.innerText = String(i);
+      li.onclick = ()=>console.log(i);
+      list.appendChild(li);
+    }
+</script>
+</body>
+</html>

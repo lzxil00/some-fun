@@ -1,0 +1,88 @@
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+.bottom {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap {
+  flex: 1;
+  width: 100vw;
+  /*background: orange;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.wrap img {
+  flex-shrink: 0;
+  width: 20vh;
+  height: 20vh;
+  object-fit: scale-down;
+}
+
+.wrap img + img {
+  margin-left: 10px;
+}
+
+.buttonWrap {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonWrap button {
+  font-size: 24px;
+  width: 30vw;
+  height: 10vh;
+}
+
+.luckyWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.showLuckWrap {
+  visibility: visible;
+}
+
+.luckyWrap img {
+  width: 50vw;
+  height: auto;
+}
+
+.hasLuckyList {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hasLuckyList img {
+  width: 10vh;
+  height: 10vh;
+  object-fit: contain;
+}
